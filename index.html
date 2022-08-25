@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Format GA URl</title>
+
+  <style>
+
+    body {
+      font-family: sans-serif;
+    }
+    
+    .container {
+      margin: 0 auto;
+      width: 80%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #output {
+      background: #f2f2f2;
+      padding: 10px;
+      width: 50%;
+    }
+
+    #data {
+      width: 50%;
+      min-height: 400px;
+    }
+
+    button {
+      margin: 10px 0px;
+      padding: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Format Link Params</h1>
+  </div>
+  <div class="container">
+    <textarea id="data"></textarea>
+    <div id="output"></div>
+  </div>
+  <div class="container">
+    <button id="action">Format</button>
+  </div>
+
+  <script>
+
+    function format(url) {
+      if (typeof url === 'string') {
+        try {
+          let fullUrl = new URL(url.trim()) ;
+          
+          let str = "";
+          for (let [key, value] of fullUrl.searchParams.entries()) {
+            str += `${key}: ${value} \n`;
+          }
+          return str;
+        } catch(_) {
+          // Do something to alert here
+          console.log("Failed to parse url", _)
+        }
+      }
+      return null;
+    }
+
+    let input = document.querySelector("#data");
+    let output = document.querySelector("#output");
+    let btn = document.querySelector("#action");
+
+    btn.addEventListener("click", (e) => {
+      console.log("input", input.value)
+      output.innerText = format(input.value);
+    })
+
+  </script>
+</body>
+</html>
