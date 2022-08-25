@@ -64,7 +64,14 @@
           return str;
         } catch(_) {
           // Do something to alert here
-          console.log("Failed to parse url", _)
+          // Try to 
+          let params = new URLSearchParams(url);
+
+          let str = "";
+          for (let [key, value] of params.entries()) {
+            str += `${key}: ${value} \n`;
+          }
+          return str;
         }
       }
       return null;
